@@ -1,0 +1,23 @@
+
+Se debe llevar el archivo CSV a:
+Llevar csv a /var/lib/mysql-files/
+
+Crear base de datos:
+CREATE DATABASE cuponatic CHARACTER SET 'UTF8' COLLATE 'utf8_general_ci';
+
+Entrar a la base de datos:
+use cuponatic;
+
+Crear tabla que contendrá la información:
+CREATE TABLE `cuponatic2`.`datos` ( `titulo` VARCHAR(255) NOT NULL , `descripcion` TEXT NOT NULL , `fecha_inicio` TIMESTAMP NULL DEFAULT NULL , `fecha_termino` TIMESTAMP NULL DEFAULT NULL , `precio` INT NOT NULL , `imagen` VARCHAR(255) DEFAULT NULL , `vendidos` INT NOT NULL , `tags` VARCHAR(255) NOT NULL ) ENGINE = InnoDB;
+
+Importar el archivo CSV:
+LOAD DATA INFILE '/var/lib/mysql-files/datos_descuentos_buscador_prueba.2.0.csv' 
+INTO TABLE datos FIELDS TERMINATED BY ','
+ENCLOSED BY '"'  
+LINES TERMINATED BY '\r\n'
+IGNORE 1 LINES; 
+
+Crear tabla para estadísticas:
+
+CREATE TABLE `cuponatic`.`estadistica` ( id INT NOT NULL AUTO_INCREMENT, `palabra` VARCHAR(255) NOT NULL , PRIMARY KEY (id) ) ENGINE = InnoDB;

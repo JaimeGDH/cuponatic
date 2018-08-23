@@ -1,0 +1,20 @@
+Llevar csv a /var/lib/mysql-files/
+
+CREATE DATABASE cuponatic CHARACTER SET 'UTF8' COLLATE 'utf8_general_ci';
+
+
+use cuponatic;
+
+CREATE TABLE `cuponatic2`.`datos` ( `titulo` VARCHAR(255) NOT NULL , `descripcion` TEXT NOT NULL , `fecha_inicio` TIMESTAMP NULL DEFAULT NULL , `fecha_termino` TIMESTAMP NULL DEFAULT NULL , `precio` INT NOT NULL , `imagen` VARCHAR(255) DEFAULT NULL , `vendidos` INT NOT NULL , `tags` VARCHAR(255) NOT NULL ) ENGINE = InnoDB;
+
+LOAD DATA INFILE '/var/lib/mysql-files/datos_descuentos_buscador_prueba.2.0.csv' 
+INTO TABLE datos FIELDS TERMINATED BY ','
+ENCLOSED BY '"'  
+LINES TERMINATED BY '\r\n'
+IGNORE 1 LINES; 
+
+http://localhost/Cuponatic/product/search.php?keywords=tour
+
+http://localhost/Cuponatic/buscador/buscar.php
+
+CREATE TABLE `cuponatic`.`estadistica` ( id INT NOT NULL AUTO_INCREMENT, `keyword` VARCHAR(255) NOT NULL , `titulo` VARCHAR(255) NOT NULL , PRIMARY KEY (id) ) ENGINE = InnoDB;
